@@ -1,13 +1,11 @@
-import styled from "styled-components"
-import Navbar from "../components/Navbar"
-import Announcement from "../components/Announcement"
-import Newsletter from "../components/Newsletter"
-import Footer from "../components/Footer"
-import { Add, Remove } from "@mui/icons-material"
+import styled from "styled-components";
+import Navbar from "../components/Navbar";
+import Announcement from "../components/Announcement";
+import Newsletter from "../components/Newsletter";
+import Footer from "../components/Footer";
+import { Add, Remove } from "@mui/icons-material";
 
-const Container = styled.div`
-    
-`;
+const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
@@ -105,18 +103,18 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: 500;
 
-  &:hover{
-      background-color: #f8f4f4;
+  &:hover {
+    background-color: #f8f4f4;
   }
 `;
 
 const Product = () => {
   return (
-      <Container>
-          <Announcement/>
-          <Navbar />
-          <Wrapper>
-          <ImgContainer>
+    <Container>
+      <Announcement />
+      <Navbar />
+      <Wrapper>
+        <ImgContainer>
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
         </ImgContainer>
         <InfoContainer>
@@ -156,11 +154,11 @@ const Product = () => {
             <Button>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
-          </Wrapper>
-          <Newsletter />
-          <Footer/>
+      </Wrapper>
+      <Newsletter />
+      <Footer />
     </Container>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

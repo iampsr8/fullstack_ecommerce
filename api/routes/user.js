@@ -41,6 +41,21 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     }
 })
 
+//get all user method
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+    //for a query like new=true we will check if there is a query then we will only return the latest 5 users that is done by the limit function and sort by latest id, else we will return all the users
+    const query = req.query.new;
+    try {
+        const users =query?await User.find().sort({_id:-1}).limit(5): await User.find();
+        return res.status(200).json(users);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+
+
+
 
 module.exports = router
 

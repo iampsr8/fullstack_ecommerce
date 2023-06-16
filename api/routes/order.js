@@ -1,6 +1,64 @@
 const router = require("express").Router();
+const Order = require("../models/Order");
+const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
 
 
+//create
+router.post("/", verifyToken, async (req, res) => {
+    const newOrder = new Order(req.body);
+    try {
+        const savedOrder = await newOrder.save();
+        return res.status(200).json(savedOrder)
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
 
+//update product
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+    try {
+        const updatedOrder = await Order.findByIdAndUpdate(req.params.id, {
+            $set:req.body
+        }, { new: true })
+        return res.status(200).json(updatedOrder)
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+//delete product
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+    try {
+        await Order.findByIdAndDelete(req.params.id);
+        return res.status(200).json("Order has been deleted");
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+//get user order
+router.get("/find/:id",verifyTokenAndAuthorization, async (req, res) => {
+    try {
+        const orders = await Order.find({userId:req.params.id});
+        return res.status(200).json(orders);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+//get all orders(only by admin)
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+    try {
+        const orders = await Order.find();
+        return res.status(200).json(orders);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+})
+
+//get monthly income
+router.get("/income", verifyTokenAndAdmin, async (req, res) => {
+    
+})
 
 module.exports = router
